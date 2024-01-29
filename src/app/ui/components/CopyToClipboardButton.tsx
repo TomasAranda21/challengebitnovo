@@ -21,7 +21,7 @@ export const CopyToClipboardButton = ({text, span, isBold, isAddress}: {text:str
         <p className='text-blue-900'>{span}</p>
       </div>
       <button type='button' className='' onClick={handleCopyClick}>
-        <Image src='/Copy.svg' width={18} height={18} alt="copy" />
+        <Image src='/copy.svg' width={18} height={18} alt="copy" />
       </button>
     </div>
   );
