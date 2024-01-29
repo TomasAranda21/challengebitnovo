@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { format, differenceInSeconds, parseISO, addSeconds, subSeconds } from 'date-fns';
 import Image from 'next/image';
 
-const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
+const CountdownTimer = ({ targetDate, refresh }: { targetDate: string, refresh: (e: boolean) => void }) => {
     const [remainingTime, setRemainingTime] = useState(differenceInSeconds(parseISO(targetDate), new Date()));
 
     useEffect(() => {
@@ -11,6 +11,7 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
                 if (prevTime <= 0) {
                     clearInterval(intervalId);
                     console.log('¡Se acabó el tiempo!');
+                    refresh(true)
                     return 0;
                 }
                 return prevTime - 1;
