@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mulish.className}>
-        <div className="h-[90vh]">
+        <div className="lg:h-[90vh]">
         {children}
           <Footer/>
         </div>
