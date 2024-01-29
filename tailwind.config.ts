@@ -27,6 +27,9 @@ const config: Config = {
           500: '#647184',
           600: '#EFF2F7',
         }
+      },
+      screens:{
+        'xs': '460px',
       }
     },
   },
