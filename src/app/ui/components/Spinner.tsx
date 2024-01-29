@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Spinner = ({size} : {size?: string}) => {
-    const xl = `w-[80px] h-[80px] border-[7px]`
+    const xl = `w-[70px] h-[70px] border-[7px]`
     const sm = `w-6 h-6 border-[3px]`
 
     return (
