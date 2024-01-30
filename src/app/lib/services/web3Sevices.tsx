@@ -2,7 +2,10 @@ import Web3 from 'web3';
 
 
 export async function getMetaMaskProvider() {
-
+    if (!('ethereum' in window) || !(window as any).ethereum) {
+        console.log('No hay ethereum en window')
+        return { error: true };
+    }
     try {
         if(!window?.ethereum) return {error: true}
         
@@ -18,7 +21,9 @@ export async function getMetaMaskProvider() {
 }
 
 export async function tranferMetaMask(to:string, quantity:string) {
+    
     try {
+        
         const web3 = await getMetaMaskProvider()
         if(web3.error) return {error: 'Instala metamask e inicia sesion en tu cuenta'}
         await web3.eth.getCode(to)
