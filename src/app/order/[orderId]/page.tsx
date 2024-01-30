@@ -11,7 +11,7 @@ import CountdownTimer from '@/app/ui/components/CountdownTimer';
 import { ErrorAlert } from '@/app/ui/components/ErrorAlert';
 import { LoadingScreen } from '@/app/ui/components/LoadingScreen';
 import { Text } from '@/app/ui/components/Text';
-import { format } from 'date-fns';
+import { differenceInSeconds, format, parseISO, set } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -22,16 +22,15 @@ const Page = ({ params }: { params: { orderId: string } }) => {
     const [dataOrder, setDataOrder] = useState<DataOrderProps | null>(null)
     const [value, setValue] = useState<string>('qr')
     const [refresh, setRefresh] = useState(false);
+    const [isTimeOut, setIsTimeOut] = useState(false)
     const [error, setError] = useState('');
     const searchParams = useSearchParams()
     const qrData = searchParams.get('payment_uri')
     const imgCrypto = searchParams.get('img')
-
-
+    
     useEffect(() => {
         const getData = async () => {
             const data = await getOrdersId(params.orderId)
-            // console.log('===>', data[0])
             setDataOrder(data[0])
         }
         getData()
@@ -75,7 +74,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
 
     if (dataOrder?.status === 'CO' || dataOrder?.status === 'AC') return <AlertPaid error={false} />
 
-    if (dataOrder?.status === 'OC' || dataOrder?.status === 'EX') return <AlertPaid error />
+    if (isTimeOut || dataOrder?.status === 'OC' || dataOrder?.status === 'EX') return <AlertPaid error />
 
     return (
         <>
@@ -122,7 +121,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
                         <h2 className='text-blue-900 text-lg mb-5 font-bold '>Realiza el pago</h2>
 
                         <div className='bg-white flex flex-col mb-5 gap-8 items-center p-4 sm:p-9 rounded-2xl border border-gray-300 shadow-md w-full'>
-                            <CountdownTimer setRefresh={setRefresh} refresh={refresh} targetDate={dataOrder?.expired_time} />
+                            <CountdownTimer setIsTimeOut={setIsTimeOut} targetDate={dataOrder?.expired_time} />
                             <div className='flex items-center gap-2'>
                                 <ButtonSelectPay isSelect={value === 'qr'} onClick={() => { setValue('qr'), setError('') }} text='Smart QR' />
                                 <ButtonSelectPay isSelect={value !== 'qr'} onClick={() => setValue('web3')} text='Web3' />

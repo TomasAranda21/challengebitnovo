@@ -1,3 +1,5 @@
+import { DataOrderProps } from "./cryptoInterfaces";
+
 export interface TextProps {
     isBold?: boolean;
     text: string;
@@ -5,8 +7,7 @@ export interface TextProps {
 
 export interface CountdownTimerProps {
     targetDate: string;
-    refresh: boolean;
-    setRefresh : (e: boolean) => void
+    setIsTimeOut: (value: boolean) => void;
 }
 
 
