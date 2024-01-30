@@ -11,7 +11,6 @@ const CountdownTimer = ({ targetDate, setIsTimeOut }: CountdownTimerProps) => {
     useEffect(() => {
         const intervalId = setInterval(async () => {
             setRemainingTime(prevTime => {
-                console.log(prevTime)
                 if (prevTime < 1) {
                     clearInterval(intervalId);
                     setIsTimeOut(true)
