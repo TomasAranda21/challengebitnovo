@@ -6,24 +6,13 @@ import { CustomButton } from './Buttons'
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { createOrderSchema } from '@/app/lib/validateSchema';
-import {LoadingScreen} from './LoadingScreen';
 import { CardForms } from './CardForms';
 import { CustomSelect } from './CustomSelect';
 import { ErrorAlert } from './ErrorAlert';
 import { createOrder, fetchDataCripto } from '@/app/lib/services/ApiServices';
 import { Spinner } from './Spinner';
+import { CryptoOption, FormBuyCryptoProps } from '@/app/lib/interfaces/cryptoInterfaces';
 
- interface FormBuyCryptoProps {
-  amount: number;
-  concept: string;
-  crypto: string;
-}
-
-interface CryptoOption {
-  symbol: string;
-  name: string;
-  image: string;
-}
 
 export const FormBuyCrypto = () => {
   const [dataCrypto, setDataCrypto] = useState([])
@@ -32,7 +21,7 @@ export const FormBuyCrypto = () => {
   const [error, setError] = useState('')
   const router = useRouter()
   
-  const { values, handleSubmit, handleChange, isValid, handleReset, setFieldValue, setFormikState } = useFormik({
+  const { values, handleSubmit, handleChange, isValid, handleReset, setFieldValue } = useFormik({
     initialValues: {
       amount: 0,
       concept: '',

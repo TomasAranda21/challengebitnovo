@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { format, differenceInSeconds, parseISO, addSeconds, subSeconds } from 'date-fns';
 import Image from 'next/image';
+import { CountdownTimerProps } from '@/app/lib/interfaces/componentsInterfaces';
 
-const CountdownTimer = ({ targetDate, refresh }: { targetDate: string, refresh: (e: boolean) => void }) => {
+
+const CountdownTimer = ({ targetDate, refresh }: CountdownTimerProps) => {
     const [remainingTime, setRemainingTime] = useState(differenceInSeconds(parseISO(targetDate), new Date()));
 
     useEffect(() => {

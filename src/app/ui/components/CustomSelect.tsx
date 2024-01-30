@@ -1,21 +1,7 @@
+import { MySelectProps } from '@/app/lib/interfaces/componentsInterfaces';
 import Image from 'next/image';
 import React, { InputHTMLAttributes, SelectHTMLAttributes, useState } from 'react'
 import Select, { OptionProps } from 'react-select';
-
-interface MySelectProps {
-    options: Option[];
-    onChange: (selectedOption: Option | null) => void;
-    label: string;
-    name: string;
-    valueOption: any;
-}
-
-interface Option {
-    value: string;
-    label: string;
-    img: string;
-}
-
 
 const Option = (props: OptionProps) => {
     const {

@@ -1,7 +1,10 @@
+import { CopyToClipboardButtonProps } from '@/app/lib/interfaces/componentsInterfaces';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 
-export const CopyToClipboardButton = ({text, span, isBold, isAddress}: {text:string, span?: string, isBold?: boolean, isAddress?:boolean}) => {
+
+
+export const CopyToClipboardButton = ({text, span, isBold, isAddress} : CopyToClipboardButtonProps) => {
   const textRef = useRef<HTMLParagraphElement | null>(null);
 
   const handleCopyClick = async () => {
