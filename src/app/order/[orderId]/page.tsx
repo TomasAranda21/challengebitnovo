@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect, useState } from 'react'
 import { DataOrderProps } from '@/app/lib/interfaces/cryptoInterfaces';
 import { getOrdersId } from '@/app/lib/services/ApiServices';
 import { tranferMetaMask } from '@/app/lib/services/web3Sevices';
@@ -15,7 +16,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import QRCode from 'qrcode.react';
-import React, { useEffect, useState } from 'react'
 
 
 const Page = ({ params }: { params: { orderId: string } }) => {
