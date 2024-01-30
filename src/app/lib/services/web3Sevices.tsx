@@ -14,7 +14,7 @@ export async function getMetaMaskProvider() {
 
         if( !accounts || !accounts.length) return console.log('No hay cuentas')
     
-        return web3
+        return web3 as any
     } catch (error) {
         console.log(error) 
     }
