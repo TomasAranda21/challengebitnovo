@@ -9,3 +9,15 @@ export interface CryptoOption {
     name: string;
     image: string;
 }
+
+export interface DataOrderProps {
+    orderId: string;
+    fiat_amount: string;
+    currency_id: string;
+    status: string;
+    created_at: string;
+    expired_time: string;
+    notes: string;
+    address: string;
+    crypto_amount: string;
+}
