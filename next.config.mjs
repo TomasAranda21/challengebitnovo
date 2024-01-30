@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['payments.pre-bnvo.com'],
-      },
+  reactStrictMode: false,
+  swcMinify: true,
+  images: {
+    domains: ['payments.pre-bnvo.com'],
+  },
 };
 
 export default nextConfig;
