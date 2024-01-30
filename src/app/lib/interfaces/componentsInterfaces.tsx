@@ -5,7 +5,8 @@ export interface TextProps {
 
 export interface CountdownTimerProps {
     targetDate: string;
-    refresh: (e: boolean) => void;
+    refresh: boolean;
+    setRefresh : (e: boolean) => void
 }
 
 

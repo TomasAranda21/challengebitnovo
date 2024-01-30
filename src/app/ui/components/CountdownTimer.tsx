@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { CountdownTimerProps } from '@/app/lib/interfaces/componentsInterfaces';
 
 
-const CountdownTimer = ({ targetDate, refresh }: CountdownTimerProps) => {
+const CountdownTimer = ({ targetDate, refresh, setRefresh }: CountdownTimerProps) => {
     const [remainingTime, setRemainingTime] = useState(differenceInSeconds(parseISO(targetDate), new Date()));
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const CountdownTimer = ({ targetDate, refresh }: CountdownTimerProps) => {
                 if (prevTime <= 0) {
                     clearInterval(intervalId);
                     console.log('¡Se acabó el tiempo!');
-                    refresh(true)
+                    setRefresh(!refresh)
                     return 0;
                 }
                 return prevTime - 1;

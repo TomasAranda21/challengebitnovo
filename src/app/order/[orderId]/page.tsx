@@ -43,7 +43,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
 
             // Escuchar cambios de estado
             socket.addEventListener('message', (event) => {
-                setRefresh(true)
+                setRefresh(!refresh)
             });
 
             socket.addEventListener('error', (errorEvent) => {
@@ -122,7 +122,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
                         <h2 className='text-blue-900 text-lg mb-5 font-bold '>Realiza el pago</h2>
 
                         <div className='bg-white flex flex-col mb-5 gap-8 items-center p-4 sm:p-9 rounded-2xl border border-gray-300 shadow-md w-full'>
-                            <CountdownTimer refresh={setRefresh} targetDate={dataOrder?.expired_time} />
+                            <CountdownTimer setRefresh={setRefresh} refresh={refresh} targetDate={dataOrder?.expired_time} />
                             <div className='flex items-center gap-2'>
                                 <ButtonSelectPay isSelect={value === 'qr'} onClick={() => { setValue('qr'), setError('') }} text='Smart QR' />
                                 <ButtonSelectPay isSelect={value !== 'qr'} onClick={() => setValue('web3')} text='Web3' />
