@@ -74,7 +74,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
 
     if (dataOrder?.status === 'CO' || dataOrder?.status === 'AC') return <AlertPaid error={false} />
 
-    if (isTimeOut || dataOrder?.status === 'OC' || dataOrder?.status === 'EX') return <AlertPaid error />
+    if (dataOrder?.status === 'OC' || dataOrder?.status === 'EX' || isTimeOut) return <AlertPaid error />
 
     return (
         <>
