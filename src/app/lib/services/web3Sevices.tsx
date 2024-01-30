@@ -9,21 +9,14 @@ export async function getMetaMaskProvider() {
     try {
         if(!window?.ethereum) return {error: true}
 
-        // // Verifica si el método request está presente
-        // if (!window.ethereum.request) {
-        //     console.log('El método request no está disponible en MetaMask');
-        //     return;
-        // }
-
-        // // Solicita permisos
-        // await window.ethereum.request({ method: 'eth_requestAccounts' });
-        
         const web3 = new Web3(window.ethereum)
         const accounts = await web3.eth.getAccounts()
 
-        console.log('accounts', accounts)
 
-        if( !accounts || !accounts.length) return console.log('No hay cuentas')
+        if( !accounts || !accounts.length){
+            await web3.eth.requestAccounts()
+            return console.log('No hay cuentas')
+        }
     
         return web3 as any
     } catch (error) {
@@ -51,7 +44,7 @@ export async function tranferMetaMask(to:string, quantity:string) {
             nonce,
             // gas: 21000,
         }
-
+        // console.log(data)
         const tx = await web3.eth.sendTransaction(data)
 
         return tx.transactionHash
