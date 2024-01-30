@@ -15,7 +15,8 @@ export async function getMetaMaskProvider() {
 
         if( !accounts || !accounts.length){
             await web3.eth.requestAccounts()
-            return console.log('No hay cuentas')
+            
+            return
         }
     
         return web3 as any
