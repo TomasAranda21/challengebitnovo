@@ -46,6 +46,10 @@ const page = ({ params }: { params: { orderId: string } }) => {
                 setRefresh(true)
             });
 
+            socket.addEventListener('error', (errorEvent) => {
+                console.error('WebSocket error:', errorEvent);
+            });
+
             // Limpiar el WebSocket cuando se desmonta el componente
             return () => {
                 socket.close();
