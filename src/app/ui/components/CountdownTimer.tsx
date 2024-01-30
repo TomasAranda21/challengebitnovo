@@ -12,8 +12,8 @@ const CountdownTimer = ({ targetDate, refresh, setRefresh }: CountdownTimerProps
             setRemainingTime(prevTime => {
                 if (prevTime <= 0) {
                     clearInterval(intervalId);
-                    console.log('¡Se acabó el tiempo!');
                     setRefresh(!refresh)
+                    console.log('¡Se acabó el tiempo!');
                     return 0;
                 }
                 return prevTime - 1;
