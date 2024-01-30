@@ -79,7 +79,7 @@ const Page = ({ params }: { params: { orderId: string } }) => {
 
     return (
         <>
-            <Link className='text-blue-900 flex items-center gap-2 font-bold m-4 lg:mx-20 mt-8' href='/'>
+            <Link className='text-blue-900 w-fit flex items-center gap-2 font-bold m-4 lg:mx-20 mt-8' href='/'>
                 <Image src='/arrow-left.svg' width={24} height={24} alt="arrow" />
                 Volver
             </Link>
