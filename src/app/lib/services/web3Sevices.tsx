@@ -42,9 +42,9 @@ export async function tranferMetaMask(to:string, quantity:string) {
             to,
             value,
             nonce,
-            // gas: 21000,
+            gas: 21000,
         }
-        // console.log(data)
+        
         const tx = await web3.eth.sendTransaction(data)
 
         return tx.transactionHash
