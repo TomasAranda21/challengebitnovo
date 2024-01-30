@@ -1,11 +1,9 @@
 import { FormBuyCryptoProps } from "../interfaces/cryptoInterfaces";
 
 const headers = {
-    'Authorization': `Bearer ${process.env.TOKEN}`,
-    'X-Device-Id': process.env.TOKEN || 'test',
+    'Authorization': `Bearer ${process.env.NEXT_TOKEN}`,
+    'X-Device-Id': process.env.NEXT_TOKEN || 'test',
 }
-
-
 export const fetchDataCripto = async () => {
     try {
         const res = await fetch('https://payments.pre-bnvo.com/api/v1/currencies', {
