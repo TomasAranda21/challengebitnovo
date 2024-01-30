@@ -25,7 +25,9 @@ export async function tranferMetaMask(to:string, quantity:string) {
     try {
         
         const web3 = await getMetaMaskProvider()
-        if(web3.error) return {error: 'Instala metamask e inicia sesion en tu cuenta'}
+        if (!web3 || (web3 as any).error) {
+            return { error: 'Instala MetaMask e inicia sesión en tu cuenta' };
+          }
         await web3.eth.getCode(to)
         const accounts = await web3.eth.getAccounts()
         const nonce = await web3.eth.getTransactionCount(accounts[0], 'latest')
