@@ -18,7 +18,7 @@ import QRCode from 'qrcode.react';
 import React, { useEffect, useState } from 'react'
 
 
-const page = ({ params }: { params: { orderId: string } }) => {
+const Page = ({ params }: { params: { orderId: string } }) => {
     const [dataOrder, setDataOrder] = useState<DataOrderProps | null>(null)
     const [value, setValue] = useState<string>('qr')
     const [refresh, setRefresh] = useState(false);
@@ -163,4 +163,4 @@ const page = ({ params }: { params: { orderId: string } }) => {
     )
 }
 
-export default page
+export default Page
