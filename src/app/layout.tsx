@@ -1,7 +1,10 @@
+
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
 import "./globals.css";
 import { Footer } from "./ui/components/Footer";
+import { ReactQueryClient } from "./lib/reactQueryClient";
+
 
 const mulish = Mulish({ subsets: ["latin"] });
 
@@ -18,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mulish.className}>
-        <div className="lg:h-[90vh]">
-        {children}
-          <Footer/>
-        </div>
+        <ReactQueryClient >
+          <div className="lg:h-[90vh]">
+            {children}
+            <Footer />
+          </div>
+        </ReactQueryClient>
       </body>
     </html>
   );

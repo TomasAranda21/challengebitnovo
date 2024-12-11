@@ -30,7 +30,7 @@ export async function tranferMetaMask(to:string, quantity:string) {
     try {
         
         const web3 = await getMetaMaskProvider()
-        if (!web3 || (web3 as any).error) {
+        if (!web3 || (web3).error) {
             return { error: 'Instala MetaMask e inicia sesión en tu cuenta' };
           }
         await web3.eth.getCode(to)
