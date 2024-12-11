@@ -3,7 +3,13 @@ import Image from 'next/image';
 import React, { InputHTMLAttributes, SelectHTMLAttributes, useState } from 'react'
 import Select, { OptionProps } from 'react-select';
 
-const Option = (props: OptionProps) => {
+export interface SelectOption {
+    value: string;
+    label: string;
+    img: string;
+  }
+
+const Option = (props: OptionProps<SelectOption, false>) => {
     const {
         children,
         isSelected,
@@ -44,7 +50,7 @@ return (
                 `mt-[10px] border border-gray-400 rounded-md px-1 p-2.5 w-full`,
                 placeholder: (state) => 'text-gray-500',
             }}
-            onChange={onChange}
+            onChange={onChange as (value: SelectOption | null) => void}
             options={options}
             defaultValue={options[1]}
             name={name}
@@ -54,7 +60,7 @@ return (
             isSearchable
             isClearable
             formatOptionLabel={({ value, label, img}) => {
-                
+
                 return (
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2'>

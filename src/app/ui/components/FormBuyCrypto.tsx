@@ -1,102 +1,139 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
-import { CustomInput } from './Inputs'
-import { CustomButton } from './Buttons'
-import { useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { createOrderSchema } from '@/app/lib/validateSchema';
+import { useFetchCryptoOptions } from '@/app/hooks/useFetchCryptoOptions';
+import { useCreateOrder } from '@/app/hooks/useCreateOrder';
+import { CustomInput } from './Inputs';
+import { CustomButton } from './Buttons';
+import { CustomSelect, SelectOption } from './CustomSelect';
 import { CardForms } from './CardForms';
-import { CustomSelect } from './CustomSelect';
-import { ErrorAlert } from './ErrorAlert';
-import { createOrder, fetchDataCripto } from '@/app/lib/services/ApiServices';
 import { Spinner } from './Spinner';
-import { CryptoOption, FormBuyCryptoProps } from '@/app/lib/interfaces/cryptoInterfaces';
+import { ErrorAlert } from './ErrorAlert';
 
+type FormData = {
+  amount: number;
+  concept: string;
+  crypto: { value: string; label: string; img: string };
+};
 
 export const FormBuyCrypto = () => {
-  const [dataCrypto, setDataCrypto] = useState([])
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const router = useRouter()
-  
-  const { values, handleSubmit, handleChange, isValid, handleReset, setFieldValue } = useFormik({
-    initialValues: {
+  const router = useRouter();
+  const { data: cryptoOptions, isLoading: isLoadingCrypto } = useFetchCryptoOptions();
+  const { mutateAsync: createOrder, isPending: isCreatingOrder, error } = useCreateOrder();
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid, isDirty },
+  } = useForm<FormData>({
+    defaultValues: {
       amount: 0,
       concept: '',
-      crypto: {
-        value: ''
-      }
+      crypto: {},
     },
-    onSubmit: values => handleOnPress({ 
-      amount: values.amount,
-      concept: values.concept,
-      crypto: values.crypto.value
-    }),
-    validationSchema: createOrderSchema
-  })
+    mode: 'onChange',
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetchDataCripto()
-      const transformedData = response.map(({symbol, name, image } :  CryptoOption) => ({
-        value: symbol,
-        label: name,
-        img: image,
-      }));
-      setDataCrypto(response)
-      setFieldValue('crypto', transformedData[1])
-      setSelectedOption(transformedData)
+   useEffect(() => {
+    if (cryptoOptions && cryptoOptions.length > 0) {
+      reset({
+        amount: 0,
+        concept: '',
+        crypto: {
+          value: cryptoOptions[1].value,
+          label: cryptoOptions[1].label,
+          img: cryptoOptions[1].img,
+        },
+      });
     }
-    getData()
-  }, [])
+  }, [cryptoOptions, reset]);
 
-  const handleOnPress = async (values : FormBuyCryptoProps) => {
-    setLoading(true)
-    const orderInfo : {payment_uri: string, identifier:string, detail:string} = await createOrder(values)
 
-    if(orderInfo.payment_uri) {
-      setError('')
-      const crypto : {image: string} = dataCrypto.filter((item : CryptoOption) => item.symbol === values.crypto)[0]
-
-      router.push(`/order/${orderInfo.identifier}?img=${encodeURIComponent(crypto.image)}&payment_uri=${encodeURIComponent(orderInfo.payment_uri)}`)
-    }else {
-      setError(orderInfo.detail)
-      setTimeout(() => {
-        setError('')
-      }, 5000)
+  const onSubmit = async (values: FormData) => {
+    try {
+      const orderInfo = await createOrder({
+        amount: values.amount,
+        concept: values.concept,
+        crypto: values.crypto.value,
+      });
+  
+      if (orderInfo.payment_uri) {
+        const selectedCrypto = cryptoOptions?.find((item) => item.value === values.crypto.value);
+        router.push(
+          `/order/${orderInfo.identifier}?img=${encodeURIComponent(
+            selectedCrypto?.img || ''
+          )}&payment_uri=${encodeURIComponent(orderInfo.payment_uri)}`
+        );
+      }
+    } catch (error) {
+      console.error('Error creando la orden:', error);
     }
-
-    setLoading(false)
-  }
+  };
 
   return (
-    <CardForms>
-        {!dataCrypto || !selectedOption ?
-        <div className='h-[488px] justify-center items-center flex'>
-          <Spinner size='sm'/>
-        </div>
-        : <form className="w-full" onReset={handleReset}>
-          <h1 className="text-2xl font-bold text-center text-blue-900">
-            Crear pago
-          </h1>
-          
-          {error !== '' && <ErrorAlert error={error} />}
-          
-          <CustomInput type='number' name='amount' onChange={(e) => setFieldValue('amount', e.target.value.replace(/^0(?=\d)/, '0.'))} value={values.amount} label="Importe a pagar" placeholder="Añade importe a pagar" />
+   <CardForms> 
+     {isLoadingCrypto ?      
+       <div className="justify-center items-center flex">
+        <Spinner size='sm' />
+      </div> : 
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="text-2xl font-bold text-center text-blue-900">Crear pago</h1>
 
-          <CustomSelect
-          name='crypto'
-          options={selectedOption ? selectedOption : []}
-          valueOption={values.crypto} 
-          label='Seleccionar moneda' 
-          onChange={(e) => setFieldValue('crypto', e)}
-          />
+        {errors.crypto || error?.message ? <ErrorAlert error={error?.message || "Selecciona una moneda válida."} /> : null}
 
-          <CustomInput type='text' name='concept' onChange={handleChange}  value={values.concept} label="Concepto" placeholder="Añade descripción del pago" />
-          <CustomButton text="Continuar" loading={loading} disabled={!isValid} onClick={handleSubmit} />
-        </form> }
+        <Controller
+          name="amount"
+          control={control}
+          rules={{ required: 'El importe es obligatorio', min: 0.01 }}
+          render={({ field }) => (
+            <CustomInput
+              {...field}
+              type="number"
+              label="Importe a pagar"
+              placeholder="Añade importe a pagar"
+            />
+          )}
+        />
+
+        <Controller
+          name="crypto"
+          control={control}
+          rules={{ required: 'Selecciona una moneda' }}
+          render={({ field }) => (
+            <CustomSelect
+              {...field}
+              onChange={(value) => field.onChange(value)}
+              valueOption={field.value}
+              options={cryptoOptions as SelectOption[]}
+              label="Seleccionar moneda"
+            />
+          )}
+        />
+
+        <Controller
+          name="concept"
+          control={control}
+          rules={{ required: 'El concepto es obligatorio' }}
+          render={({ field }) => (
+            <CustomInput
+              {...field}
+              type="text"
+              label="Concepto"
+              placeholder="Añade descripción del pago"
+            />
+          )}
+        />
+
+        <CustomButton
+          text="Continuar"
+          onClick={handleSubmit(onSubmit)}
+          loading={isCreatingOrder}
+          disabled={!isValid || !isDirty || isCreatingOrder}
+        />
+      </form> }
     </CardForms>
-  )
-}
+  );
+};

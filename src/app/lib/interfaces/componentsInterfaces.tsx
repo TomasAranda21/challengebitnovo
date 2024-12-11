@@ -1,4 +1,4 @@
-import { DataOrderProps } from "./cryptoInterfaces";
+import { SelectHTMLAttributes } from 'react';
 
 export interface TextProps {
     isBold?: boolean;
@@ -19,13 +19,19 @@ export interface CopyToClipboardButtonProps {
 }
 
 
-export interface MySelectProps {
-    options: Option[];
-    onChange: (selectedOption: Option | null) => void;
-    label: string;
-    name: string;
-    valueOption: any;
+export interface SelectOption {
+  value: string;
+  label: string;
+  img: string;
 }
+
+export interface MySelectProps {
+    options: SelectOption[]; // Las opciones del Select
+    onChange: (value: SelectOption | null) => void; // Manejador para el cambio
+    name: string; // Nombre del campo
+    label: string; // Etiqueta
+    valueOption: SelectOption | null; // Valor seleccionado
+  }
 
 export interface Option {
     value: string;
