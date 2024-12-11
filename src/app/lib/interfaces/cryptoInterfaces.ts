@@ -10,14 +10,35 @@ export interface CryptoOption {
     image: string;
 }
 
-export interface DataOrderProps {
-    orderId: string;
-    fiat_amount: string;
+export type OrderDataType = {
+    identifier: string;
+    reference: string | null;
+    created_at: string; // ISO date string
+    edited_at: string; // ISO date string
+    status: "PE" | "CO" | "AC" | "EX" | "OC"; // Puedes ajustar según los posibles valores
+    fiat_amount: number;
+    crypto_amount: number;
+    unconfirmed_amount: number;
+    confirmed_amount: number;
     currency_id: string;
-    status: string;
-    created_at: string;
-    expired_time: string;
-    notes: string;
+    merchant_device_id: number;
+    merchant_device: string;
     address: string;
-    crypto_amount: string;
-}
+    tag_memo: string;
+    url_ko: string | null;
+    url_ok: string | null;
+    url_standby: string | null;
+    expired_time: string; // ISO date string
+    good_fee: boolean;
+    notes: string;
+    rbf: boolean;
+    safe: boolean;
+    fiat: string;
+    language: string;
+    percentage: number;
+    received_amount: number;
+    balance_based: string;
+    internal_data: null; 
+    transactions: [];
+  };
+  
