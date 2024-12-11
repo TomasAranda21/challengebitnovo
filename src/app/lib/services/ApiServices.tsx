@@ -1,8 +1,8 @@
 import { FormBuyCryptoProps, OrderDataType } from "../interfaces/cryptoInterfaces";
 
 const headers = {
-    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_NEXT_TOKEN}`,
-    'X-Device-Id': process.env.NEXT_PUBLIC_NEXT_TOKEN || 'test',
+    'Authorization': `Bearer ${process.env.NEXT_TOKEN}`,
+    'X-Device-Id': process.env.NEXT_TOKEN || 'test',
 }
 
 export interface CreateOrderResponse {
