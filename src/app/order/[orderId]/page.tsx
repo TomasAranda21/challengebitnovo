@@ -171,10 +171,10 @@ import React, { useEffect, useState } from 'react';
 import { useOrderQuery } from '@/app/order/hooks/useOrderQuery';
 import { usePaymentWebSocket } from '@/app/order/hooks/usePaymentWebSocket';
 import { OrderDetails } from '@/app/order/components/OrderDetails';
-import { LoadingScreen } from '@/app/ui/components/LoadingScreen';
+import { LoadingScreen } from '@/ui/components/LoadingScreen';
 import { useSearchParams } from 'next/navigation';
-import { AlertPaid } from '@/app/ui/components/AlertPaid';
-import { tranferMetaMask } from '@/app/lib/services/web3Sevices';
+import { AlertPaid } from '@/ui/components/AlertPaid';
+import { tranferMetaMask } from '@/lib/services/web3Sevices';
 
 const Page = ({ params }: { params: { orderId: string } }) => {
     const { data: dataOrder, isLoading, refetch, error: errorToGetId } = useOrderQuery(params.orderId);

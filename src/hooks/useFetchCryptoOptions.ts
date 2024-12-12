@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchDataCripto } from '@/app/lib/services/ApiServices';
+import { fetchDataCripto } from '@/lib/services/ApiServices';
 
 export interface Option {
   value: string;

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getOrdersId } from '@/app/lib/services/ApiServices';
-import { OrderDataType } from '@/app/lib/interfaces/cryptoInterfaces';
+import { getOrdersId } from '@/lib/services/ApiServices';
+import { OrderDataType } from '@/lib/interfaces/cryptoInterfaces';
 
 export const useOrderQuery = (orderId: string) => {
   return useQuery<OrderDataType | undefined, Error>({

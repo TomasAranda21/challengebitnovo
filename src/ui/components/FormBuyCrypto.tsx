@@ -3,14 +3,17 @@
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useFetchCryptoOptions } from '@/app/hooks/useFetchCryptoOptions';
-import { useCreateOrder } from '@/app/hooks/useCreateOrder';
+import { useFetchCryptoOptions } from '@/hooks/useFetchCryptoOptions';
+import { useCreateOrder } from '@/hooks/useCreateOrder';
 import { CustomInput } from './Inputs';
 import { CustomButton } from './Buttons';
 import { CustomSelect, SelectOption } from './CustomSelect';
 import { CardForms } from './CardForms';
+import { yupResolver } from '@hookform/resolvers/yup'; 
 import { Spinner } from './Spinner';
 import { ErrorAlert } from './ErrorAlert';
+import { createOrderSchema } from '@/validateSchema';
+import { validateYupSchema } from 'formik';
 
 type FormData = {
   amount: number;
@@ -35,6 +38,7 @@ export const FormBuyCrypto = () => {
       crypto: {},
     },
     mode: 'onChange',
+    resolver: yupResolver(createOrderSchema),
   });
 
    useEffect(() => {

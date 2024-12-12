@@ -61,7 +61,8 @@ export const getOrdersId = async (id : string): Promise<OrderDataType[] | []> =>
               'X-Device-Id': process.env.NEXT_PUBLIC_NEXT_TOKEN || 'test',
             },
           });
-        console.log('res====> ', response)
+        // console.log('res====> ', response)
+
         if (!response.ok) {
             throw new Error('Error fetching order');
         }

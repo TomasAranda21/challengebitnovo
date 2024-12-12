@@ -1,4 +1,4 @@
-import { CopyToClipboardButtonProps } from '@/app/lib/interfaces/componentsInterfaces';
+import { CopyToClipboardButtonProps } from '@/lib/interfaces/componentsInterfaces';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 

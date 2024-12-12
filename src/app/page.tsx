@@ -1,6 +1,6 @@
 'use client';
 
-import { FormBuyCrypto } from "@/app/ui/components/FormBuyCrypto";
+import { FormBuyCrypto } from "@/ui/components/FormBuyCrypto";
 
 export default function Home() {
 
