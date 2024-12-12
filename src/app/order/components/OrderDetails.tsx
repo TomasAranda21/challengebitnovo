@@ -5,12 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import QRCode from 'qrcode.react';
 import { format } from 'date-fns';
-import { Text } from '@/ui/components/Text';
-import CountdownTimer from '@/ui/components/CountdownTimer';
-import { ButtonSelectPay } from '@/ui/components/Buttons';
-import { ErrorAlert } from '@/ui/components/ErrorAlert';
-import { CopyToClipboardButton } from '@/ui/components/CopyToClipboardButton';
-import { OrderDataType } from '@/lib/interfaces/cryptoInterfaces';
+import { Text } from '@/app/ui/components/Text';
+import CountdownTimer from '@/app/ui/components/CountdownTimer';
+import { ButtonSelectPay } from '@/app/ui/components/Buttons';
+import { ErrorAlert } from '@/app/ui/components/ErrorAlert';
+import { CopyToClipboardButton } from '@/app/ui/components/CopyToClipboardButton';
+import { OrderDataType } from '@/app/lib/interfaces/cryptoInterfaces';
 
 
 type Props = {

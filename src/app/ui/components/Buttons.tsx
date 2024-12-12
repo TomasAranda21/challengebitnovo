@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spinner } from './Spinner';
-import { CustomButtonProps } from '@/lib/interfaces/componentsInterfaces';
+import { CustomButtonProps } from '@/app/lib/interfaces/componentsInterfaces';
 
 export const CustomButton = ({ text, onClick, disabled, loading }: CustomButtonProps) => {
     return (

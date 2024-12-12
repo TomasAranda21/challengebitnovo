@@ -2,8 +2,8 @@
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
 import "./globals.css";
-import { Footer } from "../ui/components/Footer";
-import { ReactQueryClient } from "../lib/reactQueryClient";
+import { Footer } from "./ui/components/Footer";
+import { ReactQueryClient } from "./lib/reactQueryClient";
 
 
 const mulish = Mulish({ subsets: ["latin"] });

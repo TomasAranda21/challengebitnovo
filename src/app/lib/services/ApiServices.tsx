@@ -56,10 +56,7 @@ export const createOrder = async (data: FormBuyCryptoProps): Promise<CreateOrder
 export const getOrdersId = async (id : string): Promise<OrderDataType[] | []> => {
     try {
         const response = await fetch(`https://payments.pre-bnvo.com/api/v1/orders/info/${id}`, {
-            headers: {
-              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_NEXT_TOKEN || ''}`,
-              'X-Device-Id': process.env.NEXT_PUBLIC_NEXT_TOKEN || 'test',
-            },
+            headers,
           });
         // console.log('res====> ', response)
 

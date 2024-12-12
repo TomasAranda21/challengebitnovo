@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { format, differenceInSeconds, parseISO, addSeconds, subSeconds } from 'date-fns';
 import Image from 'next/image';
-import { CountdownTimerProps } from '@/lib/interfaces/componentsInterfaces';
-import { getOrdersId } from '@/lib/services/ApiServices';
+import { CountdownTimerProps } from '@/app/lib/interfaces/componentsInterfaces';
+import { getOrdersId } from '@/app/lib/services/ApiServices';
 
 
 const CountdownTimer = ({ targetDate, setIsTimeOut }: CountdownTimerProps) => {

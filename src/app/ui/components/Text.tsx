@@ -1,4 +1,4 @@
-import { TextProps } from '@/lib/interfaces/componentsInterfaces'
+import { TextProps } from '@/app/lib/interfaces/componentsInterfaces'
 import React from 'react'
 
 export const Text = ({isBold, text} : TextProps) => {

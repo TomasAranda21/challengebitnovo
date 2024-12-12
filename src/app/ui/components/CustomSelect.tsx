@@ -1,4 +1,4 @@
-import { MySelectProps } from '@/lib/interfaces/componentsInterfaces';
+import { MySelectProps } from '@/app/lib/interfaces/componentsInterfaces';
 import Image from 'next/image';
 import React, { InputHTMLAttributes, SelectHTMLAttributes, useState } from 'react'
 import Select, { OptionProps } from 'react-select';
